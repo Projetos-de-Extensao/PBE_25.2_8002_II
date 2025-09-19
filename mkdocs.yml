@@ -22,12 +22,15 @@ nav:
       - Mapa Mental: Iniciacao/mapa_mental.md
       - Prototipagem Baixa Fidelidade: Iniciacao/prototipo_baixa_fidelidade.md
   - Elaboração:
-      - Index: Elaboracao/index.md
-      - Requisitos: Elaboracao/das.md
-      - Casos de Uso: Elaboracao/casos_de_uso.md
-      - Diagrama de Classes: Elaboracao/diagrama_de_classes.md
-      - Diagrama de Sequência: Elaboracao/diagrama_de_sequencia.md
-      - Protótipo de Alta Fidelidade: Elaboracao/prototipo_alta_fidelidade.md
+    - Index: Elaboracao/index.md
+    - Requisitos: Elaboracao/das.md
+    - Especificação de Requisitos: Elaboracao/especificacao_de_requisitos.md
+    - Casos de Uso: Elaboracao/casos_de_uso.md
+    - Diagrama de Casos de Uso: Elaboracao/diagrama_de_casos_de_uso.md
+    - Diagrama de Classes: Elaboracao/diagrama_de_classes.md
+    - Diagrama de Classes Conceitual: Elaboracao/diagrama_de_classes_conceitual.md
+    - Diagrama de Sequência: Elaboracao/diagrama_de_sequencia.md
+    - Protótipo de Alta Fidelidade: Elaboracao/prototipo_alta_fidelidade.md
   - Construção:
       - Index: Construcao/index.md
       - Git Issues: Construcao/git_issues.md
