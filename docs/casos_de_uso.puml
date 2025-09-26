@@ -31,7 +31,7 @@ rectangle "Sistema de Gestao de Projetos" {
   UC_Avaliar   .> UC_PedirComp: <<extend>>
 }
 
-A_Prop  -down-> UC_Submeter
+A_Coord  -down-> UC_Submeter
 A_Prop  -down-> UC_Acompanhar
 A_Prop  -down-> UC_Responder
 
@@ -40,7 +40,7 @@ A_Prof  -down-> UC_SolicProf
 A_Prof  -down-> UC_Entregas
 
 A_Aluno -down-> UC_ListarAprov
-A_Aluno -down-> UC_SolicGrupo
+A_Prof -down-> UC_SolicGrupo
 A_Aluno -down-> UC_Entregas
 
 A_Coord -down-> UC_Avaliar
