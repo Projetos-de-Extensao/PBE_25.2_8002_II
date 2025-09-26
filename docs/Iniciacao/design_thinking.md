@@ -3,9 +3,6 @@
 
 ## 1. Capa
 - Título do Projeto: Plataforma de Gestão de Projetos Acadêmicos
-- Nome da Equipe: [Preencher]
-- Data: [Preencher]
-- Logo da Instituição/Empresa: [Inserir se aplicável]
 
 ---
 
