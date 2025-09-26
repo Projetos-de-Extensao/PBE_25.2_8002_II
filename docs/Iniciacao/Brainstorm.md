@@ -1,7 +1,4 @@
----
-id: brainstorm
-title: Brainstorm
----
+
  
 
 ## Introdução
