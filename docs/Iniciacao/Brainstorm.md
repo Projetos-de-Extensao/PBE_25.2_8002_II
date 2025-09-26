@@ -19,100 +19,100 @@ A equipe se reuniu para debater ideias gerais sobre o projeto via..., começou .
  
 ## Perguntas
  
-### 1. Qual o objetivo principal da aplicação?
- 
-<p align = "justify">
-<b>XXXX</b> - Deve ser uma plataforma onde qualquer pessoa possa...
-</p>
- 
-<b>ZZZ</b> - A plataforma deve fornece...
- 
-<b>YYYY</b> - O objetivo da aplicação é....
- 
-<b>WWWW</b> - O principal objetivo da aplicação é a...
- 
-<b>KKKK</b> - A plataforma deve gerenciar...
-</p>
- 
----
- 
-### 2. Como será o processo para cadastrar um novo cliente?
- 
-<p align = "justify">
-<b>XXXX</b> - O moderador deverá fazer login e...
- 
-<b>YYYY</b> - O cliente...
- 
-<b>WWWW</b> - Com o usuário logado, ele deverá...
 
-<b>ZZZZ</b> - O cliente...
- 
-<b>KKK</b> - O cliente...
+<p align = "justify">
+<b>João</b> - O principal objetivo é criar uma plataforma onde empresas, professores e coordenação possam cadastrar, acompanhar e aprovar projetos acadêmicos de forma transparente e organizada.
+</p>
+
+<b>Maria</b> - A aplicação deve facilitar o fluxo de seleção e acompanhamento dos projetos, tornando o processo mais eficiente para todos os envolvidos.
+
+<b>Carlos</b> - O objetivo é centralizar todas as informações dos projetos, desde o cadastro até o histórico, permitindo fácil acesso e controle.
+
+<b>Ana</b> - Queremos garantir que os projetos aprovados estejam visíveis para adoção dos professores e grupos, além de manter um histórico dos melhores projetos (Hall of Fame).
+
+<b>Lucas</b> - A plataforma deve gerenciar o ciclo completo dos projetos, desde o cadastro até o acompanhamento e finalização.
  
 ---
  
-### 3. Como será a forma de adicionar produtos?
- 
+
 <p align = "justify">
-<b>XXXX</b> - O cliente ao cadastrar...
+<b>João</b> - O usuário responsável (empresa, professor ou coordenação) faz login, acessa o menu de cadastro e preenche um formulário com os dados do novo projeto, empresa ou grupo.
 </p>
+
+<b>Maria</b> - O cadastro deve ser simples, com campos obrigatórios e validação automática. Após o envio, o sistema notifica a coordenação para avaliação.
+
+<b>Carlos</b> - O usuário pode anexar documentos ou informações adicionais no momento do cadastro, facilitando a análise posterior.
+
+<b>Ana</b> - O sistema deve permitir que o usuário acompanhe o status do cadastro (em análise, aprovado, pendente).
+
+<b>Lucas</b> - Todo cadastro fica registrado no histórico, garantindo rastreabilidade.
  
+---
+ 
+
 <p align = "justify">
-<b>YYYYY</b> - O produto tem...
+<b>João</b> - No nosso contexto, "produtos" seriam os projetos ou entregas dos grupos. Eles podem ser adicionados por meio de um formulário específico, com campos para título, descrição, responsáveis e anexos.
 </p>
- 
-<b>ZZZZ</b> - O produto....
- 
-<b>XXXX</b> - O produto....
+
+<b>Maria</b> - Cada projeto pode ter entregas parciais (produtos intermediários), que são cadastradas e avaliadas ao longo do tempo.
+
+<b>Carlos</b> - O sistema deve permitir anexar arquivos, links ou descrições detalhadas para cada produto/entrega.
+
+<b>Ana</b> - Professores e grupos podem atualizar o status dos produtos conforme avançam nas etapas do projeto.
+
+<b>Lucas</b> - Todos os produtos ficam visíveis para a coordenação e podem ser avaliados individualmente.
 
  
 ---
  
-### 4. Outras perguntas pertinentes ao contexto
 
 <p align = "justify">
-<b>XXXX</b> - Com a localização...
- 
-<b>YYYY</b> - O cliente...
- 
-<b>ZZZ</b> - O cliente...
+<b>João</b> - O sistema pode permitir a visualização de projetos por localização, facilitando parcerias regionais.
+</p>
+
+<b>Maria</b> - O usuário pode filtrar projetos por área de interesse, status ou empresa parceira.
+
+<b>Carlos</b> - A plataforma pode enviar notificações sobre prazos e atualizações importantes.
  
 ---
  
-### 5. "Outras perguntas pertinentes ao contexto", Como seria a forma de adicionar do cliente adicionar os produtos ?
+
 <p align = "justify">
-<b>XXX</b> - O cliente....
+<b>João</b> - O usuário acessa a área do projeto, clica em "Adicionar Entrega" e preenche os detalhes do produto, anexando arquivos se necessário.
 </p>
  
-### 6. Quais informações seriam interessante para o cliente?
+
 <p align = "justify">
-   <b>XXX</b> - Informações...
+   <b>João</b> - Seria interessante mostrar o status do projeto, prazos, responsáveis e histórico de alterações.
    
-   <b>ZZZZ</b> - O cliente usuário poderá acessar informações...
+   <b>Maria</b> - O usuário deve poder acessar documentos, feedbacks e avaliações recebidas.
 
-   <b>WWWWs</b> - O usuário poderá ver scouts de partidas do torneio, ver as regras dos torneios, locais e data das partidas.
-   
+   <b>Carlos</b> - A plataforma pode exibir um painel com os projetos aprovados, em andamento e finalizados.
+
+   <b>Ana</b> - Seria útil ter gráficos de desempenho e um Hall of Fame com os melhores projetos.
+
+   <b>Lucas</b> - O usuário pode receber alertas sobre prazos e eventos importantes relacionados ao projeto.
 </p>
  
 ### Requisitos elicitados
  
 |ID|Descrição|
 |----|-------------|
-|BS01| O cliente...|
-|BS02| O cliente...|
-|BS03| O cliente...|
-|BS04| O cliente...|
-|BS05| O cliente...|
-|BS06| O cliente...|
-|BS07| O cliente...|
-|BS08| O cliente...|
-|BS09| O cliente...|
-|BS10| O produto...|
-|BS11| O produto...|
-|BS12| O produto...|
-|BS13| O produto...|
-|BS14| O produto...|
-|BS15| O produto...|
+|BS01| O usuário pode cadastrar projetos, empresas, coordenação, professores e grupos na plataforma.|
+|BS02| O sistema permite acompanhar o status dos projetos (Recebido, Em avaliação, Pendência, Aprovado).|
+|BS03| Professores podem adotar projetos aprovados e vinculá-los a grupos.|
+|BS04| O sistema registra todas as entregas (produtos) dos grupos, com anexos e descrições.|
+|BS05| Usuários podem visualizar o histórico de projetos (Hall of Fame) e projetos em andamento.|
+|BS06| O sistema envia notificações sobre prazos e atualizações importantes.|
+|BS07| É possível filtrar projetos por área, status, empresa ou localização.|
+|BS08| O sistema permite anexar documentos e feedbacks em cada etapa do projeto.|
+|BS09| Professores e grupos podem atualizar o status dos produtos/entregas.|
+|BS10| A coordenação pode aprovar ou reprovar projetos e entregas.|
+|BS11| O sistema mantém um histórico completo de todas as ações realizadas.|
+|BS12| Usuários recebem alertas sobre eventos e prazos relevantes.|
+|BS13| O painel exibe gráficos de desempenho dos projetos.|
+|BS14| O sistema permite exportar relatórios de acompanhamento.|
+|BS15| O usuário pode acessar feedbacks e avaliações recebidas em cada projeto.|
  
 ## Conclusão
 <p align = "justify">
@@ -125,5 +125,4 @@ Através da aplicação da técnica, foi possível elicitar alguns dos primeiros
  
 ## Autor(es)
 | Data | Versão | Descrição | Autor(es) |
-| -- | -- | -- | -- |
-| DD/MM/YYYY | 1.0 | Criação do documento | XXX XXXX, XXXX XXXX, YYY YYYY e ZZZ XXXX |
+| 25/09/2025 | 1.0 | Criação do documento | Murilo piatigorsky, Joao Marcio, Enzo Zambrotti, Nicholas Victorino |
