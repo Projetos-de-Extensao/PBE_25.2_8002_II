@@ -1,7 +1,6 @@
----
-id: prototipobaixa
-title: Protótipo Baixa Fidelidade
----
+# O Prototipo 
+Ele foi dividido em duas partes, uma pro professor e outra pro diretor.
+
 
 0) Login (professor/diretor)
 ```
