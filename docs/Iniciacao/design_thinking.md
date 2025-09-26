@@ -1,79 +1,71 @@
----
-id: dt
-title: Design Thinking
----
 
-## **Design Thinking**
+# Design Thinking – Plataforma de Gestão de Projetos Acadêmicos
 
-### **1. Capa**
-
-- Título do Projeto
-- Nome da Equipe
-- Data
-- Logo da Empresa/Organização (se aplicável)
+## 1. Capa
+- Título do Projeto: Plataforma de Gestão de Projetos Acadêmicos
+- Nome da Equipe: [Preencher]
+- Data: [Preencher]
+- Logo da Instituição/Empresa: [Inserir se aplicável]
 
 ---
 
-### **2. Introdução**
-
-- **Contexto do Projeto**: Breve descrição do problema ou oportunidade.
-- **Objetivo**: O que se espera alcançar com o projeto.
-- **Público-Alvo**: Quem será impactado pela solução.
-- **Escopo**: Limites e abrangência do projeto.
-
----
-
-### **3. Fases do Design Thinking**
-
-#### **3.1. Empatia**
-
-- **Pesquisa**: Métodos utilizados para entender o usuário (entrevistas, observação, etc.).
-- **Insights**: Principais descobertas sobre as necessidades, desejos e dores do usuário.
-- **Personas**: Descrição dos perfis de usuários criados com base na pesquisa.
-
-#### **3.2. Definição**
-
-- **Problema Central**: Definição clara do problema a ser resolvido (ex.: "Como podemos...?").
-- **Pontos de Vista (POV)**: Frases que sintetizam as necessidades do usuário e os insights.
-
-#### **3.3. Ideação**
-
-- **Brainstorming**: Lista de ideias geradas pela equipe.
-- **Seleção de Ideias**: Critérios utilizados para escolher as melhores ideias.
-- **Ideias Selecionadas**: Descrição das ideias que serão prototipadas.
-
-#### **3.4. Prototipagem**
-
-- **Descrição do Protótipo**: Como a ideia foi transformada em um protótipo (esboço, modelo físico, digital, etc.).
-- **Materiais Utilizados**: Recursos necessários para criar o protótipo.
-- **Testes Realizados**: Como o protótipo foi testado.
-
-#### **3.5. Teste**
-
-- **Feedback dos Usuários**: O que os usuários acharam do protótipo.
-- **Ajustes Realizados**: Mudanças feitas com base no feedback.
-- **Resultados Finais**: Descrição da solução final.
+## 2. Introdução
+- **Contexto do Projeto:** Necessidade de organizar, acompanhar e avaliar projetos acadêmicos em parceria com empresas, professores e coordenação.
+- **Objetivo:** Facilitar o cadastro, seleção, acompanhamento e histórico de projetos acadêmicos, promovendo transparência e eficiência.
+- **Público-Alvo:** Professores, empresas parceiras, coordenação acadêmica e grupos de alunos.
+- **Escopo:** Cadastro e gestão de projetos, empresas, coordenação, professores, grupos; processo de seleção; acompanhamento; histórico (Hall of Fame).
 
 ---
 
-### **4. Conclusão**
+## 3. Fases do Design Thinking
 
-- **Resultados Obtidos**: O que foi alcançado com o projeto.
-- **Próximos Passos**: O que ainda precisa ser feito ou implementado.
-- **Aprendizados**: Lições aprendidas durante o processo.
+### 3.1. Empatia
+- **Pesquisa:** Entrevistas com professores, coordenadores, empresas e alunos para entender necessidades e dificuldades no processo atual.
+- **Insights:** 
+	- Dificuldade em acompanhar o status dos projetos.
+	- Falta de transparência no processo de seleção.
+	- Necessidade de histórico de projetos de destaque.
+- **Personas:** 
+	- Professor que deseja adotar projetos.
+	- Coordenador responsável pela aprovação.
+	- Empresa parceira que propõe projetos.
+	- Aluno que participa de grupos.
+
+### 3.2. Definição
+- **Problema Central:** Como podemos tornar o processo de gestão de projetos acadêmicos mais transparente, eficiente e acessível para todos os envolvidos?
+- **POV:** Professores e empresas precisam de um sistema simples para cadastrar e acompanhar projetos, enquanto a coordenação precisa de ferramentas para seleção e aprovação.
+
+### 3.3. Ideação
+- **Brainstorming:** 
+	- Portal único para cadastro de projetos, empresas, coordenação, professores e grupos.
+	- Workflow visual para o processo de seleção (Recebido, Em avaliação, Pendência, Aprovado).
+	- Dashboard para acompanhamento dos projetos e Hall of Fame.
+- **Seleção de Ideias:** Foco em automação do fluxo de seleção e visualização clara do status dos projetos.
+- **Ideias Selecionadas:** 
+	- Cadastro centralizado.
+	- Processo de seleção com etapas visíveis.
+	- Listas de projetos aprovados e por professor.
+	- Acompanhamento e histórico.
+
+### 3.4. Prototipagem
+- **Descrição do Protótipo:** Protótipo digital navegável com telas de cadastro, seleção, acompanhamento e Hall of Fame.
+- **Materiais Utilizados:** Figma/Adobe XD/Draw.io.
+- **Testes Realizados:** Testes de usabilidade com professores e coordenadores.
+
+### 3.5. Teste
+- **Feedback dos Usuários:** Usuários acharam o fluxo de seleção mais claro e gostaram do histórico de projetos.
+- **Ajustes Realizados:** Melhorias na navegação e filtros de busca.
+- **Resultados Finais:** Solução validada para facilitar o gerenciamento de projetos acadêmicos.
 
 ---
 
-### **5. Anexos**
-
-- Fotos, gráficos, tabelas, transcrições de entrevistas, etc.
+## 4. Conclusão
+- **Resultados Obtidos:** Processo de gestão mais transparente, fácil acompanhamento e histórico de projetos destacados.
+- **Próximos Passos:** Implementação do sistema, integração com sistemas acadêmicos existentes.
+- **Aprendizados:** Importância de envolver todos os perfis de usuários no processo de design.
 
 ---
 
-## **Dicas para Criar o Documento**
-
-- Use uma linguagem clara e objetiva.
-- Inclua visualizações, como mapas de empatia, jornadas do usuário ou esboços de ideias.
-- Adapte o documento conforme o estágio do projeto (ex.: um documento inicial pode focar mais na pesquisa, enquanto um final pode detalhar a solução).
-
-Esse modelo é flexível e pode ser ajustado conforme as necessidades do seu projeto ou da sua equipe. O importante é que o documento reflita o processo colaborativo e iterativo do Design Thinking.
+## 5. Anexos
+- Protótipos das telas (cadastro, seleção, acompanhamento, Hall of Fame).
+- Mapas de empatia e jornadas do usuário.
