@@ -20,8 +20,11 @@ As principais funcionalidades são:
 ### 3. Requisitos Funcionais
 
 RF01. O sistema deve permitir o cadastro de projetos com dados básicos (título, descrição, professor responsável, empresa associada).
+
 RF02. O sistema deve permitir o cadastro de empresas parceiras.
+
 **RF03.** O sistema deve permitir o cadastro de coordenação (usuários com perfil de coordenação).
+
 **RF04.** O sistema deve gerenciar o processo de seleção dos projetos, com os seguintes status:
 	- Recebido
 	- Em Avaliação
