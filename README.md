@@ -10,3 +10,8 @@ Descreva o seu projeto em linhas gerais.
 **Tecnologias**: Github, Visual Studio Code<br>
  os pré-requisitos para rodar o seu projeto são UX, Engenharia de Dados, POO.
 
+## Integrantes do grupo
+Murilo Piatigorsky 202202448605 <br>
+Joao Marcio - 202208385001 <br>
+Enzo Zambrotti - 202407095917 <br>
+Nicholas Victorino - 202203813021 <br>
