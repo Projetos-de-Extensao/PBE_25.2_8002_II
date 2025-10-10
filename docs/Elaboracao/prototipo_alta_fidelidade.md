@@ -24,8 +24,8 @@ Ele foi dividido em duas partes, uma pro professor e outra pro diretor.
 | Filtro: [ Todos v ]  Buscar: [___________]  [ Buscar ]       |
 +--------------------------------------------------------------+
 | Projeto 1        | Em revisão           | [Detalhes]      [⋮]|
-| Projeto 2        | 20/22 passos prontos    | [Detalhes]   [⋮]|
-| Projeto 3        | 13/13passos prontos    | [Detalhes]   [⋮] |
+| Projeto 2        | Etapa atual: 20/22    | [Detalhes]   [⋮]|
+| Projeto 3        | Etapa atual: 13/13   | [Detalhes]   [⋮] |
 --------------------------------------------------------------+
 | [ Novo Projeto ]                                              |
 +--------------------------------------------------------------+
