@@ -3,8 +3,7 @@
 **Código da Disciplina**: IBM8936<br>
 
 ## Sobre 
-Descreva o seu projeto em linhas gerais. 
-
+Plataforma web para gestão de projetos acadêmicos, permitindo cadastro, acompanhamento e organização de projetos por professores e direção.
 ## Instalação 
 **Linguagens**: Python, Django<br>
 **Tecnologias**: Github, Visual Studio Code<br>
