@@ -5,6 +5,7 @@
 Se desejar, insira uma imagem:
 
 ![Diagrama de Classes Conceitual](diagrama_de_classes_conceitual.png)
+![Diagrama de Classes Conceitual](diagrama_de_classe_de_uso2.png)
 
 Ou utilize uma ferramenta como draw.io, Lucidchart, ou exporte do StarUML e adicione o arquivo de imagem na pasta.
 
