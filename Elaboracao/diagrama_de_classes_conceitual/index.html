@@ -9,7 +9,7 @@
     <link href=../diagrama_de_sequencia/ rel=next>
     <link rel=icon href=../../assets/images/favicon.png>
     <meta name=generator content="mkdocs-1.6.1, mkdocs-material-9.6.18">
-    <title>Diagrama de Classes Conceitual - PBE_25.2_8003</title>
+    <title>Diagrama de Classes Conceitual - PBE_25.2_8002_II</title>
     <link rel=stylesheet href=../../assets/stylesheets/main.7e37652d.min.css>
     <link rel=stylesheet href=../../assets/stylesheets/palette.06af60db.min.css>
     <link rel=preconnect href=https://fonts.gstatic.com crossorigin>
@@ -39,7 +39,7 @@
                 </svg> </label>
             <div class=md-header__title data-md-component=header-title>
                 <div class=md-header__ellipsis>
-                    <div class=md-header__topic> <span class=md-ellipsis> PBE_25.2_8003 </span> </div>
+                    <div class=md-header__topic> <span class=md-ellipsis> PBE_25.2_8002_II </span> </div>
                     <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> Diagrama de
                             Classes Conceitual </span> </div>
                 </div>
@@ -108,7 +108,7 @@
                     </div>
                 </div>
             </div>
-            <div class=md-header__source> <a href=https://github.com/jonh-carvalho/PBE_25.2_8003
+            <div class=md-header__source> <a href=https://github.com/Projetos-de-Extensao/PBE_25.2_8002_II/tree/main
                     title="Go to repository" class=md-source data-md-component=source>
                     <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg
                             viewbox="0 0 512 512"><!-- Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.-->
@@ -301,29 +301,11 @@
                     <article class="md-content__inner md-typeset">
                         <h1 id=diagrama-de-classes-conceitual>Diagrama de Classes Conceitual<a class=headerlink
                                 href=#diagrama-de-classes-conceitual title="Permanent link">&para;</a></h1>
-                        <blockquote>
-                            <p>Adicione aqui o diagrama de classes conceitual do sistema.</p>
-                        </blockquote>
-                        <p>Se desejar, insira uma imagem:</p>
-                        <p><img alt="Diagrama de Classes Conceitual" src=../diagrama_de_classes_conceitual.png></p>
-                        
+                        <p><u>Diagrama de classes simples:</u></p>
+                        <p><img alt="Diagrama de Classes Conceitual" src=../diagrama_de_classes_conceitual.png></p><br>
+                        <p><u>Diagrama de classes simples completo:</u></p>
                         <p><img alt="Diagrama de Classes Conceitual2" src=../Diagrama2.png></p>
-                        
-                        <p>Ou utilize uma ferramenta como draw.io, Lucidchart, ou exporte do StarUML e adicione o
-                            arquivo de imagem na pasta.</p>
-                        <p>@startuml DiagramaClassesConceitual</p>
-                        <p>class Projeto { +id: int +titulo: string +descricao: string +status: string +progresso:
-                            string }</p>
-                        <p>class Professor { +id: int +nome: string +email: string }</p>
-                        <p>class Empresa { +id: int +nome: string +contato: string }</p>
-                        <p>class Coordenacao { +id: int +nome: string +email: string }</p>
-                        <p>class Grupo { +id: int +tipo: string // Grupo I ou Grupo II }</p>
-                        <p>class HallOfFame { +id: int +projeto: Projeto }</p>
-                        <p>Projeto "1" -- "1" Professor : professorResponsavel Projeto "1" -- "1" Empresa :
-                            empresaAssociada Projeto "1" -- "1" Coordenacao : aprovadoPor Projeto "1" -- "N" Grupo :
-                            gruposVinculados Grupo "N" -- "1" Projeto : projetoVinculado HallOfFame "N" -- "1" Projeto :
-                            destaque</p>
-                        <p>@enduml</p>
+                    
                     </article>
                 </div>
                 <script>var target = document.getElementById(location.hash.slice(1)); target && target.name && (target.checked = target.name.startsWith("__tabbed_"))</script>
