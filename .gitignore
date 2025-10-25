@@ -1,3 +1,5 @@
+site/
+
 # Python / Bytecode
 __pycache__/
 *.py[cod]
