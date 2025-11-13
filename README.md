@@ -20,5 +20,5 @@ Nicholas Victorino - 202203813021 <br>
 [API](API_README.md) |
 [Swagger](SWAGGER_README.md) |
 [Autenticação](AUTH_README.md)|
-[Swagger](SWAGGER_README.md)
+
 
