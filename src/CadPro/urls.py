@@ -22,21 +22,13 @@ from drf_spectacular.views import (
     SpectacularRedocView,
 )
 from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
     TokenRefreshView,
     TokenVerifyView,
 )
 from drf_spectacular.utils import extend_schema
+from app.authentication import CustomTokenObtainPairView
 
 # Customiza as views do SimpleJWT para adicionar documentação Swagger
-@extend_schema(
-    tags=["Autenticação"],
-    summary="Obter token de acesso",
-    description="Obtém um par de tokens (access e refresh) fornecendo email e senha válidos."
-)
-class CustomTokenObtainPairView(TokenObtainPairView):
-    pass
-
 @extend_schema(
     tags=["Autenticação"],
     summary="Renovar token de acesso",
