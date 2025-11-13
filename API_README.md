@@ -12,6 +12,29 @@ python manage.py runserver
 
 A API estará disponível em: `http://127.0.0.1:8000/api/`
 
+## 📚 Documentação Interativa (Swagger)
+
+A API possui documentação interativa completa usando Swagger/OpenAPI:
+
+- **Swagger UI**: http://127.0.0.1:8000/api/docs/
+- **ReDoc**: http://127.0.0.1:8000/api/redoc/
+- **Schema OpenAPI (JSON)**: http://127.0.0.1:8000/api/schema/
+
+### 🎯 Swagger UI
+Interface interativa onde você pode:
+- ✅ Explorar todos os endpoints
+- ✅ Testar requisições diretamente no navegador
+- ✅ Ver exemplos de request e response
+- ✅ Visualizar a estrutura de dados (schemas)
+- ✅ Filtrar por tags (Usuários, Professores, Projetos, etc.)
+
+### 📖 ReDoc
+Documentação mais limpa e focada em leitura:
+- ✅ Estrutura clara e organizada
+- ✅ Pesquisa de endpoints
+- ✅ Exemplos de código
+- ✅ Descrição detalhada de cada campo
+
 ## 📋 Endpoints Disponíveis
 
 ### 1️⃣ **Usuários**
