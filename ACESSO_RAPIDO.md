@@ -26,6 +26,50 @@ O servidor está ativo em: **http://127.0.0.1:8000**
 
 ---
 
+## 🔐 Autenticação JWT
+
+### 🆕 Endpoints de Autenticação
+
+- `/api/register/` - Registrar novo usuário (público)
+- `/api/token/` - Obter tokens de acesso (login)
+- `/api/token/refresh/` - Renovar token de acesso
+- `/api/token/verify/` - Verificar se token é válido
+
+### ⚡ Início Rápido - Autenticação
+
+**1. Registre-se:**
+```bash
+curl -X POST http://127.0.0.1:8000/api/register/ \
+  -H "Content-Type: application/json" \
+  -d '{"nome":"Test User","email":"test@test.com","password":"test123456","password2":"test123456"}'
+```
+
+**2. Obtenha token:**
+```bash
+curl -X POST http://127.0.0.1:8000/api/token/ \
+  -H "Content-Type: application/json" \
+  -d '{"email":"test@test.com","password":"test123456"}'
+```
+
+**3. Use a API:**
+```bash
+curl -H "Authorization: Bearer SEU_ACCESS_TOKEN" \
+     http://127.0.0.1:8000/api/projetos/
+```
+
+### 🧪 Autenticação no Swagger
+
+1. Acesse http://127.0.0.1:8000/api/docs/
+2. Use `POST /api/token/` para obter um token
+3. Clique no botão **"Authorize"** (cadeado) no topo
+4. Digite: `Bearer SEU_TOKEN_AQUI`
+5. Clique em "Authorize" → "Close"
+6. Agora pode testar todos os endpoints! 🎉
+
+📖 **Documentação completa:** `AUTH_README.md`
+
+---
+
 ## 📋 Endpoints da API
 
 ### Base URL: `http://127.0.0.1:8000/api/`
@@ -88,6 +132,7 @@ curl -X POST http://127.0.0.1:8000/api/usuarios/ \
 
 ## 🔍 Recursos Disponíveis
 
+✅ **Autenticação JWT com tokens**
 ✅ Paginação (10 itens por página)
 ✅ Busca por texto
 ✅ Filtros por campos
@@ -99,6 +144,7 @@ curl -X POST http://127.0.0.1:8000/api/usuarios/ \
 
 ## 📚 Documentação Completa
 
+- **AUTH_README.md** - 🔐 Guia completo de autenticação JWT
 - **API_README.md** - Guia completo da API
 - **SWAGGER_README.md** - Detalhes da implementação Swagger
 - **Este arquivo** - Guia rápido de acesso
@@ -108,8 +154,9 @@ curl -X POST http://127.0.0.1:8000/api/usuarios/ \
 ## 🎯 Próximos Passos
 
 1. ✅ Acesse o Swagger: http://127.0.0.1:8000/api/docs/
-2. ✅ Explore os endpoints
-3. ✅ Teste criar alguns dados
-4. ✅ Veja a documentação interativa
+2. ✅ Registre um usuário: `POST /api/register/`
+3. ✅ Obtenha um token: `POST /api/token/`
+4. ✅ Autentique no Swagger com o token
+5. ✅ Explore e teste os endpoints
 
 **Divirta-se explorando a API! 🚀**

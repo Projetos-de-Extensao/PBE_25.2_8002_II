@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from rest_framework import viewsets, filters
+from rest_framework import viewsets, filters, status, generics
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
 from django_filters.rest_framework import DjangoFilterBackend
 from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiParameter
 from drf_spectacular.types import OpenApiTypes
@@ -17,6 +18,7 @@ from .models import (
     HallOfFame,
 )
 from .serializers import (
+    RegisterSerializer,
     UsuarioSerializer,
     ProfessorSerializer,
     CoordenadorSerializer,
@@ -26,6 +28,20 @@ from .serializers import (
     GrupoSerializer,
     HallOfFameSerializer,
 )
+
+
+@extend_schema(
+    summary="Registrar novo usuário",
+    description="Endpoint público para registro de novos usuários. Não requer autenticação.",
+    tags=["Autenticação"],
+    request=RegisterSerializer,
+    responses={201: UsuarioSerializer}
+)
+class RegisterView(generics.CreateAPIView):
+    """View para registro de novos usuários"""
+    queryset = Usuario.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = RegisterSerializer
 
 
 @extend_schema_view(

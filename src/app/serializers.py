@@ -1,4 +1,6 @@
 from rest_framework import serializers
+from django.contrib.auth.password_validation import validate_password
+from django.contrib.auth.hashers import make_password
 from .models import (
     Usuario,
     Professor,
@@ -9,6 +11,31 @@ from .models import (
     Grupo,
     HallOfFame,
 )
+
+
+class RegisterSerializer(serializers.ModelSerializer):
+    """Serializer para registro de novos usuários"""
+    password = serializers.CharField(
+        write_only=True, required=True, validators=[validate_password]
+    )
+    password2 = serializers.CharField(write_only=True, required=True)
+
+    class Meta:
+        model = Usuario
+        fields = ('nome', 'email', 'password', 'password2')
+
+    def validate(self, attrs):
+        if attrs['password'] != attrs['password2']:
+            raise serializers.ValidationError(
+                {"password": "Os campos de senha não coincidem."}
+            )
+        return attrs
+
+    def create(self, validated_data):
+        validated_data.pop('password2')
+        validated_data['senha'] = make_password(validated_data.pop('password'))
+        user = Usuario.objects.create(**validated_data)
+        return user
 
 
 class UsuarioSerializer(serializers.ModelSerializer):
