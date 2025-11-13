@@ -18,5 +18,9 @@ Nicholas Victorino - 202203813021 <br>
 
 [Guia de Acesso Rápido](ACESSO_RAPIDO.md) |
 [API](API_README.md) |
+<<<<<<< HEAD
 [Swagger](SWAGGER_README.md) |
 [Autenticação](AUTH_README.md)
+=======
+[Swagger](SWAGGER_README.md)
+>>>>>>> 9f73a7a85b07d95ceeac6935acf992ad5eb59854
