@@ -54,13 +54,13 @@ POST /api/token/
 **Response (200 OK):**
 ```json
 {
-  "access": "eyJ0eXAiOiJKV1QiLCJhbGc...",
-  "refresh": "eyJ0eXAiOiJKV1QiLCJhbGc..."
+  "refresh": "eyJ0eXAiOiJKV1QiLCJhbGc...",
+  "access": "eyJ0eXAiOiJKV1QiLCJhbGc..."
 }
 ```
 
-- **access:** Token para autenticação nas requisições (válido por 5 horas)
 - **refresh:** Token para renovar o access token (válido por 1 dia)
+- **access:** Token para autenticação nas requisições (válido por 5 horas)
 
 ---
 
@@ -136,6 +136,7 @@ response = requests.post('http://127.0.0.1:8000/api/token/', json={
     'password': 'senha_segura_123'
 })
 tokens = response.json()
+refresh_token = tokens['refresh']
 access_token = tokens['access']
 
 # Usar token em requisição protegida
@@ -155,7 +156,7 @@ const loginResponse = await fetch('http://127.0.0.1:8000/api/token/', {
     password: 'senha_segura_123'
   })
 });
-const { access } = await loginResponse.json();
+const { refresh, access } = await loginResponse.json();
 
 // Usar token em requisição protegida
 const projetosResponse = await fetch('http://127.0.0.1:8000/api/projetos/', {
@@ -179,8 +180,10 @@ A API está configurada com `IsAuthenticatedOrReadOnly`, o que significa:
 
 | Token | Validade | Descrição |
 |-------|----------|-----------|
-| `access` | 5 horas | Token para autenticação nas requisições |
 | `refresh` | 1 dia | Token para renovar o access token |
+| `access` | 5 horas | Token para autenticação nas requisições |
+
+**Observação:** O token retornado usa `email` para login (não `username`), pois nosso modelo Usuario utiliza email como identificador único.
 
 ---
 
@@ -226,7 +229,7 @@ sequenceDiagram
 
 4. **Autentique no Swagger:**
    - Clique no botão **"Authorize"** (cadeado) no topo da página
-   - No campo "**jwtAuth (http, Bearer)**", insira: `Bearer SEU_TOKEN_AQUI`
+   - No campo **"jwtAuth (http, Bearer)"**, cole apenas o token (SEM a palavra "Bearer")
    - Clique em "Authorize" e depois "Close"
 
 5. **Teste endpoints protegidos:**
