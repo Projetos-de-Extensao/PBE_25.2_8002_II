@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import RedirectView
 from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularSwaggerView,
@@ -46,6 +47,9 @@ class CustomTokenVerifyView(TokenVerifyView):
     pass
 
 urlpatterns = [
+    # Redireciona a raiz para o admin
+    path('', RedirectView.as_view(url='/admin/', permanent=False)),
+    
     path('admin/', admin.site.urls),
     path('api/', include('app.urls')),  # Rotas da API
     
