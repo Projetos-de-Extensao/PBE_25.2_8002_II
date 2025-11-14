@@ -1,0 +1,83 @@
+@startuml Diagrama de Classes
+
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontSize 11
+
+class Usuario {
+    - id: Integer
+    - nome: String
+    - email: String
+    - senha: String
+}
+
+class Professor {
+    - projetos: String
+}
+
+class Coordenador {
+}
+
+class Empresa {
+    - contato: String
+    - projetos: String
+}
+
+class Proposta {
+    - id: Integer
+    - titulo: String
+    - descricao: Text
+    - data_envio: Date
+    - status: String
+    - anexos: Text
+    - empresa: String
+}
+
+class Projeto {
+    - id: Integer
+    - titulo: String
+    - descricao: Text
+    - status: String
+    - progresso: Decimal
+    - curso_turma: String
+    - alunos: Text
+    - data_inicio: Date
+    - data_final: Date
+    - anexos: Text
+    - professor_responsavel: String
+    - empresa_associada: String
+    - aprovado_por: String
+    - proposta: String
+ 
+}
+
+class Grupo {
+    - id: Integer
+    - alunos: String
+}
+
+class HallOfFame {
+    - id: Integer
+    - destaque: Integer
+}
+
+Usuario <|-- Professor
+Usuario <|-- Coordenador
+Usuario <|-- Empresa
+
+Empresa "1" --> "0..*" Proposta : empresa
+
+Professor "0..1" --> "0..*" Projeto : professor_responsavel
+Coordenador "0..1" --> "0..*" Projeto : aprovado_por
+Empresa "0..1" --> "0..*" Projeto : empresa_associada
+Proposta "1" -- "1" Projeto : proposta
+
+Professor "0..*" -- "0..*" Projeto : projetos
+Coordenador "0..*" -- "0..*" Projeto : projetos
+Empresa "0..*" -- "0..*" Projeto : projetos_associados
+
+Grupo "0..*" --> "0..*" Projeto : projetos
+
+Projeto "1" <-- "0..*" HallOfFame : projeto
+
+@enduml
