@@ -12,7 +12,7 @@ hide:
 
     ---
 
-    Lorem Ipsum     Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+   Test
 
     [:octicons-arrow-right-24: Repositório](https://github.com/Projetos-de-Extensao/PBE_25.2_8003_I)
 
@@ -20,7 +20,7 @@ hide:
 
     ---
 
-    Lorem Ipsum Lorem Ipsum Lorem Ipsum
+   Test
 
     [:octicons-arrow-right-24: Repositório](https://github.com/Projetos-de-Extensao/PBE_25.2_8003_II)
 
