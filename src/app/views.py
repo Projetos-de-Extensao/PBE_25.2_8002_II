@@ -30,7 +30,6 @@ from .serializers import (
 )
 from .permissions import IsCoordenador, IsProfessorOrCoordenadorOrReadOnly, IsEmpresaOrCoordenador
 
-
 @extend_schema(
     summary="Registrar novo usuário",
     description="Endpoint público para registro de novos usuários. Não requer autenticação.",
@@ -80,7 +79,7 @@ class RegisterView(generics.CreateAPIView):
 class UsuarioViewSet(viewsets.ModelViewSet):
     """
     ViewSet para gerenciar usuários.
-    
+
     Permite operações CRUD completas sobre usuários.
     """
     queryset = Usuario.objects.all()
@@ -101,7 +100,7 @@ class UsuarioViewSet(viewsets.ModelViewSet):
 class ProfessorViewSet(viewsets.ModelViewSet):
     """
     ViewSet para gerenciar professores.
-    
+
     Professores são usuários que podem ser responsáveis por projetos.
     """
     queryset = Professor.objects.all()
@@ -109,7 +108,7 @@ class ProfessorViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['nome', 'email']
     ordering_fields = ['id', 'nome']
-    
+
     @extend_schema(
         summary="Listar projetos do professor",
         description="Retorna todos os projetos associados ao professor.",
@@ -136,7 +135,7 @@ class ProfessorViewSet(viewsets.ModelViewSet):
 class CoordenadorViewSet(viewsets.ModelViewSet):
     """
     ViewSet para gerenciar coordenadores.
-    
+
     Coordenadores são usuários que podem aprovar projetos.
     """
     queryset = Coordenador.objects.all()
@@ -145,7 +144,7 @@ class CoordenadorViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['nome', 'email']
     ordering_fields = ['id', 'nome']
-    
+
     @extend_schema(
         summary="Listar projetos aprovados",
         description="Retorna todos os projetos aprovados por este coordenador.",
@@ -178,7 +177,7 @@ class EmpresaViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['nome', 'email', 'contato']
     ordering_fields = ['id', 'nome']
-    
+
     @extend_schema(
         summary="Listar propostas da empresa",
         tags=["Empresas"],
@@ -191,7 +190,7 @@ class EmpresaViewSet(viewsets.ModelViewSet):
         propostas = empresa.propostas.all()
         serializer = PropostaSerializer(propostas, many=True)
         return Response(serializer.data)
-    
+
     @extend_schema(
         summary="Listar projetos da empresa",
         tags=["Empresas"],
@@ -225,18 +224,18 @@ class PropostaViewSet(viewsets.ModelViewSet):
     search_fields = ['titulo', 'descricao']
     ordering_fields = ['id', 'titulo', 'data_envio', 'status']
     ordering = ['-data_envio']  # Ordenação padrão
-    
+
     def get_permissions(self):
         """Define permissões por action: create requer IsEmpresaOrCoordenador"""
         if self.action == 'create':
             return [IsEmpresaOrCoordenador()]
         return super().get_permissions()
-    
+
     def perform_create(self, serializer):
         """Ao criar proposta, associa automaticamente a empresa se usuário for empresa."""
         user_type = getattr(self.request.user, 'user_type', None)
         email = getattr(self.request.user, 'email', None)
-        
+
         # Se for empresa, forçar empresa_id a ser a empresa do usuário logado
         if user_type == 'empresa' and email:
             try:
@@ -245,10 +244,10 @@ class PropostaViewSet(viewsets.ModelViewSet):
                 return
             except Empresa.DoesNotExist:
                 pass
-        
+
         # Coordenador pode especificar empresa manualmente ou criamos sem empresa
         serializer.save(status='Em análise')
-    
+
     @extend_schema(
         summary="Listar propostas em análise",
         description="Retorna apenas as propostas que estão com status 'Em análise'.",
@@ -370,7 +369,7 @@ class ProjetoViewSet(viewsets.ModelViewSet):
     search_fields = ['titulo', 'descricao', 'curso_turma', 'alunos']
     ordering_fields = ['id', 'titulo', 'status', 'progresso', 'data_inicio']
     ordering = ['-id']
-    
+
     @extend_schema(
         summary="Atualizar progresso do projeto",
         description="Atualiza apenas o campo de progresso do projeto (em %).",
@@ -452,7 +451,7 @@ class GrupoViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['tipo']
     ordering_fields = ['id', 'tipo']
-    
+
     @extend_schema(
         summary="Listar projetos do grupo",
         tags=["Grupos"],
@@ -485,7 +484,7 @@ class HallOfFameViewSet(viewsets.ModelViewSet):
     filterset_fields = ['destaque']
     ordering_fields = ['id', 'destaque']
     ordering = ['destaque']  # Ordenação por prioridade
-    
+
     @extend_schema(
         summary="Top 10 destaques",
         description="Retorna os 10 projetos mais destacados do Hall of Fame.",

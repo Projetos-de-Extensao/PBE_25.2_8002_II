@@ -33,56 +33,13 @@ form.addEventListener('submit', async (e) => {
       return;
     }
 
-    // Registro OK — agora realiza login automático para obter tokens e redirecionar
-    const tokenRes = await fetch(`${API_BASE}/api/token/`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
-    });
-    if (!tokenRes.ok) {
-      // Registro funcionou, mas login automático falhou. Mostrar mensagem e voltar ao login.
-      msg.textContent = 'Conta criada, mas falha no login automático. Faça login manualmente.';
-      msg.style.display = 'block';
-      return;
-    }
-
-    const data = await tokenRes.json();
-    localStorage.setItem('access', data.access);
-    localStorage.setItem('refresh', data.refresh);
-    localStorage.setItem('user_email', email);
-
-    // Redireciona conforme papel (reutiliza lógica simples)
-    const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${data.access}` };
-    const check = async (url) => {
-      const r = await fetch(url, { headers });
-      if (!r.ok) return [];
-      const j = await r.json();
-      return Array.isArray(j) ? j : (j.results || []);
-    };
-
-    const isCoord = await check(`${API_BASE}/api/coordenadores/?search=${encodeURIComponent(email)}`);
-    console.debug('role-check coordenadores:', isCoord);
-    if (isCoord.length) {
-      localStorage.setItem('user_role', 'Coordenador');
-      return window.location.href = 'coordenador.html';
-    }
-
-    const isProf = await check(`${API_BASE}/api/professores/?search=${encodeURIComponent(email)}`);
-    console.debug('role-check professores:', isProf);
-    if (isProf.length) {
-      localStorage.setItem('user_role', 'Professor');
-      return window.location.href = 'professor.html';
-    }
-
-    const isEmp = await check(`${API_BASE}/api/empresas/?search=${encodeURIComponent(email)}`);
-    console.debug('role-check empresas:', isEmp);
-    if (isEmp.length) {
-      localStorage.setItem('user_role', 'Empresa');
-      return window.location.href = 'empresa.html';
-    }
-
-    localStorage.setItem('user_role', 'Usuário');
-    window.location.href = 'projects.html';
+    // Registro OK — não faz login automático.
+    // Em vez disso, informa o usuário de sucesso e redireciona para a tela de login.
+  console.log('Registro realizado com sucesso — redirecionando para login');
+  localStorage.setItem('registered_msg', 'Conta criada com sucesso. Faça login.');
+  // use replace para evitar que o botão Voltar leve de volta para a página de registro
+  window.location.replace('index.html');
+  return;
 
   } catch (err) {
     console.error(err);

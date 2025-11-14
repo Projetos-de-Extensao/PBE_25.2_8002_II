@@ -3,6 +3,14 @@ const API_BASE = 'http://127.0.0.1:8000';
 const form = document.getElementById('loginForm');
 const msg = document.getElementById('msg');
 
+// Se veio de registro bem-sucedido, mostra mensagem de sucesso e limpa o flag
+const regMsg = localStorage.getItem('registered_msg');
+if (regMsg) {
+  msg.textContent = regMsg;
+  msg.style.display = 'block';
+  localStorage.removeItem('registered_msg');
+}
+
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   msg.style.display = 'none';
