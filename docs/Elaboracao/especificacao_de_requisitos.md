@@ -1,80 +1,127 @@
 # Especificação de Requisitos
 
-## Sistema: Plataforma de Gestão de Projetos Acadêmicos
+## Sistema de Gestão de Projetos Acadêmicos
 
-### 1. Introdução
+---
 
-O presente documento descreve os requisitos do sistema de gestão de projetos acadêmicos. O sistema possibilita o cadastro, acompanhamento e avaliação de projetos em parceria com empresas, professores e coordenação, garantindo transparência no processo de seleção e execução.
+## 1. Introdução
 
-### 2. Escopo
+Este documento descreve os requisitos do sistema de Gestão de Projetos Acadêmicos. A plataforma permite o cadastro, seleção, acompanhamento e avaliação de projetos desenvolvidos em parceria com empresas, professores e a coordenação acadêmica, proporcionando transparência e organização em todo o processo.
 
-O sistema será utilizado por professores, empresas parceiras e coordenação acadêmica.
-As principais funcionalidades são:
+---
 
-- Cadastro de entidades (Projetos, Empresas, Coordenação, Professores e Grupos).
-- Processo de seleção de projetos (Recebido → Em Avaliação → Pendência → Aprovado).
-- Listagem de projetos aprovados disponíveis.
-- Acompanhamento de projetos em andamento.
-- Visualização de histórico (Hall of Fame).
+## 2. Escopo
 
-### 3. Requisitos Funcionais
+### Usuários do Sistema
 
-RF01. O sistema deve permitir o cadastro de projetos com dados básicos (título, descrição, professor responsável, empresa associada).
+- **Professores**
+- **Empresas parceiras**
+- **Coordenação acadêmica**
 
-RF02. O sistema deve permitir o cadastro de empresas parceiras.
+### Principais Funcionalidades
 
-**RF03.** O sistema deve permitir o cadastro de coordenação (usuários com perfil de coordenação).
+- Cadastro de entidades (Projetos, Empresas, Professores, Coordenação e Grupos de alunos)
+- Processo completo de seleção de projetos: **Recebido** → **Em Avaliação** → **Pendência** → **Aprovado**
+- Listagem de projetos aprovados disponíveis para adoção
+- Acompanhamento dos projetos em andamento
+- Visualização de histórico de destaque (Hall of Fame)
 
-**RF04.** O sistema deve gerenciar o processo de seleção dos projetos, com os seguintes status:
-	- Recebido
-	- Em Avaliação
-	- Pendência
-	- Aprovado
-**RF05.** O sistema deve permitir o cadastro de professores.
-**RF06.** O sistema deve disponibilizar a lista de projetos aprovados disponíveis.
-**RF07.** O sistema deve gerar a lista de projetos do professor, com a possibilidade de adoção de projetos.
-**RF08.** O sistema deve gerenciar a alocação de grupos de alunos a projetos, divididos em Grupo I e Grupo II.
-**RF09.** O sistema deve permitir o acompanhamento dos projetos (status e progresso).
-**RF10.** O sistema deve permitir a visualização de Hall of Fame (projetos concluídos de destaque) e dos projetos em andamento.
-**RF11.** O sistema deve permitir o cadastro de grupos de alunos.
+---
 
-### 4. Requisitos Não Funcionais
+## 3. Requisitos Funcionais
 
-**RNF01.** O sistema deve ser acessível via navegador web.
-**RNF02.** O sistema deve possuir autenticação de usuários (Professor, Coordenação, Empresa).
-**RNF03.** O banco de dados deve garantir integridade e consistência das informações.
-**RNF04.** O sistema deve ser responsivo, acessível também em dispositivos móveis.
-**RNF05.** O tempo de resposta não deve ultrapassar 2 segundos para operações de consulta.
+**RF01. Cadastro de Projetos**  
+O sistema deve permitir o cadastro de projetos contendo título, descrição, professor responsável e empresa associada.
 
-### 5. Regras de Negócio
+**RF02. Cadastro de Empresas**  
+O sistema deve permitir que empresas parceiras sejam cadastradas com seus dados básicos.
 
-**RN01.** Apenas a Coordenação pode aprovar ou reprovar projetos.
-**RN02.** Um projeto só pode ser atribuído a grupos após ser aprovado.
-**RN03.** Cada grupo pode estar vinculado a apenas um projeto por vez.
-**RN04.** Professores podem adotar projetos apenas da lista de aprovados.
+**RF03. Cadastro de Usuários da Coordenação**  
+O sistema deve permitir o cadastro de usuários com perfil de coordenação.
 
-### 6. Casos de Uso (resumidos)
+**RF04. Gerenciamento do Processo de Seleção**  
+O sistema deve permitir alterar o status dos projetos entre as seguintes etapas:
+- Recebido
+- Em Avaliação
+- Pendência
+- Aprovado
+
+**RF05. Cadastro de Professores**  
+O sistema deve permitir o cadastro de professores e seus dados profissionais.
+
+**RF06. Listagem de Projetos Aprovados**  
+O sistema deve disponibilizar aos professores a lista de projetos já aprovados e aptos para adoção.
+
+**RF07. Lista de Projetos do Professor**  
+O sistema deve gerar a lista de projetos vinculados a cada professor, permitindo a adoção ou visualização de informações.
+
+**RF08. Alocação de Grupos**  
+O sistema deve gerenciar a alocação de grupos de alunos aos projetos, dividindo-os em Grupo I e Grupo II.
+
+**RF09. Acompanhamento de Projetos**  
+O sistema deve permitir o acompanhamento do status, progresso e informações gerais dos projetos em execução.
+
+**RF10. Hall of Fame e Projetos Atuais**  
+O sistema deve disponibilizar a visualização dos projetos em andamento e dos projetos concluídos de destaque (Hall of Fame).
+
+**RF11. Cadastro de Grupos de Alunos**  
+O sistema deve permitir o cadastro e gerenciamento de grupos de alunos participantes.
+
+---
+
+## 4. Requisitos Não Funcionais
+
+**RNF01. Acesso via Navegador**  
+O sistema deve ser acessível através de navegadores web modernos.
+
+**RNF02. Autenticação**  
+O sistema deve possuir autenticação para diferentes perfis: Professor, Coordenação e Empresa.
+
+**RNF03. Integridade dos Dados**  
+O banco de dados deve garantir a integridade, segurança e consistência das informações armazenadas.
+
+**RNF04. Responsividade**  
+O sistema deve ser responsivo e acessível em dispositivos móveis e tablets.
+
+**RNF05. Desempenho**  
+O tempo de resposta para operações de consulta não deve exceder 2 segundos.
+
+---
+
+## 5. Regras de Negócio
+
+**RN01. Aprovação Exclusiva pela Coordenação**  
+Somente usuários com perfil de coordenação podem aprovar, reprovar ou alterar o status de seleção dos projetos.
+
+**RN02. Atribuição de Projeto a Grupos**  
+Um projeto só pode ser alocado a grupos após ter sido aprovado.
+
+**RN03. Vínculo Único por Grupo**  
+Cada grupo de alunos pode estar vinculado a apenas um projeto por vez.
+
+**RN04. Adoção de Projetos**  
+Professores podem adotar apenas projetos que estejam na lista de aprovados.
+
+---
+
+## 6. Casos de Uso
 
 **UC01 – Cadastrar Projeto**
 
-Ator: Professor/Coordenação
-
-Descrição: Permite cadastrar novo projeto com dados obrigatórios.
+- **Ator:** Professor / Coordenação
+- **Descrição:** Permite cadastrar um novo projeto preenchendo os dados obrigatórios.
 
 **UC02 – Avaliar Projeto**
 
-Ator: Coordenação
-
-Descrição: Define status do projeto (Recebido, Em Avaliação, Pendência ou Aprovado).
+- **Ator:** Coordenação
+- **Descrição:** Permite definir ou alterar o status do projeto (Recebido, Em Avaliação, Pendência, Aprovado).
 
 **UC03 – Adotar Projeto**
 
-Ator: Professor
-
-Descrição: Permite que o professor adote projeto aprovado, vinculando-o a grupo(s).
+- **Ator:** Professor
+- **Descrição:** Permite que o professor adote um projeto aprovado e vincule grupos de alunos.
 
 **UC04 – Acompanhar Projeto**
 
-Ator: Coordenação/Professor
-
-Descrição: Permite visualizar status, progresso e grupos vinculados ao projeto.
+- **Ator:** Professores / Coordenação
+- **Descrição:** Permite visualizar o status do projeto, progresso e grupos vinculados.

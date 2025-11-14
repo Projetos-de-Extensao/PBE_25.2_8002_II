@@ -1,17 +1,54 @@
 # Diagrama de Classes
 
-O diagrama de classes representa a estrutura estática do sistema, mostrando as principais classes, atributos, métodos e os relacionamentos entre elas.
+Estrutura do sistema de gestão de projetos acadêmicos.
 
-## Exemplo visual (imagem ilustrativa)
+## Arquivo do Diagrama
 
-![Diagrama de Classes](diagrama_de_classes.png)
+**PlantUML:** `docs/diagrama_de_classes.puml`
 
-> Substitua a imagem acima por um diagrama real do seu sistema, exportado de uma ferramenta como StarUML, Lucidchart, draw.io, etc.
+## Classes
 
-## Recomendações
+### Usuario (Base)
+- id, nome, email, senha
+- **Subclasses:** Professor, Coordenador, Empresa
 
-- Inclua as principais entidades do sistema (ex: Usuário, Projeto, Grupo, Empresa, Coordenação).
-- Mostre atributos e métodos relevantes.
-- Represente associações, heranças e cardinalidades.
+### Professor (herda Usuario)
+- projetos: String
+- Relacionamentos: ManyToMany com Projeto
 
-Se desejar, adicione o diagrama em formato PlantUML ou como imagem SVG/PDF para melhor visualização.
+### Coordenador (herda Usuario)
+- Relacionamentos: ManyToMany com Projeto
+
+### Empresa (herda Usuario)
+- contato, projetos: String
+- Relacionamentos: 1:N com Proposta, N:N com Projeto
+
+### Proposta
+- titulo, descricao, data_envio, status, anexos
+- Relacionamentos: N:1 com Empresa, 1:1 com Projeto
+
+### Projeto (Central)
+- titulo, descricao, status, progresso, curso_turma, alunos, datas, anexos
+- Relacionamentos: 1:1 com Proposta, N:1 com Professor/Empresa/Coordenador, N:N com Grupo
+
+### Grupo
+- tipo ("I" ou "II"), alunos
+- Relacionamentos: N:N com Projeto
+
+### HallOfFame
+- destaque (prioridade)
+- Relacionamentos: N:1 com Projeto
+
+## Hierarquia
+
+```
+Usuario → Professor, Coordenador, Empresa
+```
+
+## Relacionamentos Principais
+
+- Empresa → Proposta (1:N)
+- Proposta → Projeto (1:1)
+- Projeto → Professor/Coordenador/Empresa (N:1 e N:N)
+- Grupo → Projeto (N:N)
+- Projeto → HallOfFame (1:N)
