@@ -20,7 +20,7 @@ class UsuarioWrapper:
     @property
     def is_authenticated(self):
         return True
-    
+
     @property
     def user_type(self):
         return self._user_type
@@ -38,35 +38,48 @@ class CustomJWTAuthentication(JWTAuthentication):
     """
     def get_user(self, validated_token):
         from .models import Professor, Coordenador, Empresa
-        
+
         # Pega claim configurado (por padrão 'user_id')
         id_claim = settings.SIMPLE_JWT.get('USER_ID_CLAIM', 'user_id')
         user_id = validated_token.get(id_claim)
         if user_id is None:
             return None
 
-        # Tenta buscar no modelo padrão Django
+        # Se o token informar explicitamente o tipo de usuário, use isso
+        # para resolver diretamente no modelo correspondente. Isso evita
+        # colisões de PK entre tabelas diferentes (por exemplo: admin User pk=1
+        # versus Empresa pk=1).
+        user_type = validated_token.get('user_type')
+        try:
+            if user_type == 'professor':
+                usuario = Professor.objects.get(pk=user_id)
+                return UsuarioWrapper(usuario, user_type=user_type)
+            if user_type == 'coordenador':
+                usuario = Coordenador.objects.get(pk=user_id)
+                return UsuarioWrapper(usuario, user_type=user_type)
+            if user_type == 'empresa':
+                usuario = Empresa.objects.get(pk=user_id)
+                return UsuarioWrapper(usuario, user_type=user_type)
+            if user_type == 'usuario':
+                usuario = Usuario.objects.get(pk=user_id)
+                return UsuarioWrapper(usuario, user_type=user_type)
+        except Exception:
+            # se o lookup por user_type falhar, continuamos para tentar o
+            # modelo Django padrão abaixo (fallback)
+            pass
+
+        # Fallback: tenta buscar no modelo padrão Django (auth.User). Se
+        # encontrado, retornamos esse usuário; caso contrário tentamos buscar
+        # novamente no modelo genérico do app.
         UserModel = get_user_model()
         try:
             return UserModel.objects.get(pk=user_id)
         except Exception:
             pass
 
-        # Fallback: usa user_type do token para buscar no modelo correto
-        user_type = validated_token.get('user_type', 'usuario')
-        
         try:
-            if user_type == 'professor':
-                usuario = Professor.objects.get(pk=user_id)
-            elif user_type == 'coordenador':
-                usuario = Coordenador.objects.get(pk=user_id)
-            elif user_type == 'empresa':
-                usuario = Empresa.objects.get(pk=user_id)
-            else:
-                # fallback genérico
-                usuario = Usuario.objects.get(pk=user_id)
-            
-            return UsuarioWrapper(usuario, user_type=user_type)
+            usuario = Usuario.objects.get(pk=user_id)
+            return UsuarioWrapper(usuario, user_type=user_type or 'usuario')
         except Exception:
             from rest_framework_simplejwt.exceptions import AuthenticationFailed
             raise AuthenticationFailed('User not found')
