@@ -28,6 +28,7 @@ from .serializers import (
     GrupoSerializer,
     HallOfFameSerializer,
 )
+from .permissions import IsCoordenador, IsProfessorOrCoordenadorOrReadOnly, IsEmpresaOrCoordenador
 
 
 @extend_schema(
@@ -140,6 +141,7 @@ class CoordenadorViewSet(viewsets.ModelViewSet):
     """
     queryset = Coordenador.objects.all()
     serializer_class = CoordenadorSerializer
+    permission_classes = [IsCoordenador]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['nome', 'email']
     ordering_fields = ['id', 'nome']
@@ -224,18 +226,128 @@ class PropostaViewSet(viewsets.ModelViewSet):
     ordering_fields = ['id', 'titulo', 'data_envio', 'status']
     ordering = ['-data_envio']  # Ordenação padrão
     
+    def get_permissions(self):
+        """Define permissões por action: create requer IsEmpresaOrCoordenador"""
+        if self.action == 'create':
+            return [IsEmpresaOrCoordenador()]
+        return super().get_permissions()
+    
+    def perform_create(self, serializer):
+        """Ao criar proposta, associa automaticamente a empresa se usuário for empresa."""
+        user_type = getattr(self.request.user, 'user_type', None)
+        email = getattr(self.request.user, 'email', None)
+        
+        # Se for empresa, forçar empresa_id a ser a empresa do usuário logado
+        if user_type == 'empresa' and email:
+            try:
+                empresa = Empresa.objects.get(email=email)
+                serializer.save(empresa=empresa, status='Em análise')
+                return
+            except Empresa.DoesNotExist:
+                pass
+        
+        # Coordenador pode especificar empresa manualmente ou criamos sem empresa
+        serializer.save(status='Em análise')
+    
     @extend_schema(
         summary="Listar propostas em análise",
         description="Retorna apenas as propostas que estão com status 'Em análise'.",
         tags=["Propostas"],
         responses={200: PropostaSerializer(many=True)}
     )
-    @action(detail=False, methods=['get'])
+    @action(detail=False, methods=['get'], permission_classes=[IsCoordenador])
     def em_analise(self, request):
         """Endpoint customizado para listar propostas em análise"""
         propostas = self.queryset.filter(status='Em análise')
         serializer = self.get_serializer(propostas, many=True)
         return Response(serializer.data)
+
+    @extend_schema(
+        summary="Aprovar proposta",
+        description="Marca a proposta como aprovada.",
+        tags=["Propostas"],
+        responses={200: PropostaSerializer}
+    )
+    @action(detail=True, methods=['post'], permission_classes=[IsCoordenador])
+    def aprovar(self, request, pk=None):
+        """Marca a proposta como 'Aprovada'"""
+        proposta = self.get_object()
+        proposta.status = 'Aprovada'
+        proposta.save()
+        serializer = self.get_serializer(proposta)
+        return Response(serializer.data)
+
+    @extend_schema(
+        summary="Rejeitar proposta",
+        description="Marca a proposta como rejeitada.",
+        tags=["Propostas"],
+        responses={200: PropostaSerializer}
+    )
+    @action(detail=True, methods=['post'], permission_classes=[IsCoordenador])
+    def rejeitar(self, request, pk=None):
+        """Marca a proposta como 'Rejeitada'"""
+        proposta = self.get_object()
+        proposta.status = 'Rejeitada'
+        proposta.save()
+        serializer = self.get_serializer(proposta)
+        return Response(serializer.data)
+
+    @extend_schema(
+        summary="Ajeitar proposta (atribuir professor e transformar em projeto)",
+        description="Atribui um professor à proposta, cria um projeto associado e marca como 'Em progresso'.",
+        tags=["Propostas"],
+        request={"application/json": {"type": "object", "properties": {"professor_id": {"type": "integer"}, "coordenador_id": {"type": "integer"}}}},
+        responses={201: ProjetoSerializer}
+    )
+    @action(detail=True, methods=['post'], permission_classes=[IsCoordenador])
+    def ajeitar(self, request, pk=None):
+        """Cria um Projeto a partir da Proposta, atribuindo um Professor e (opcionalmente) Coordenador aprovador."""
+        from datetime import date
+        proposta = self.get_object()
+        prof_id = request.data.get('professor_id')
+        coord_id = request.data.get('coordenador_id')
+
+        # Valida professor
+        professor = None
+        if prof_id:
+            try:
+                professor = Professor.objects.get(id=prof_id)
+            except Professor.DoesNotExist:
+                return Response({'error': 'Professor não encontrado'}, status=status.HTTP_400_BAD_REQUEST)
+
+        coordenador = None
+        if coord_id:
+            try:
+                coordenador = Coordenador.objects.get(id=coord_id)
+            except Coordenador.DoesNotExist:
+                return Response({'error': 'Coordenador não encontrado'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Cria Projeto a partir da Proposta
+        projeto = Projeto.objects.create(
+            titulo=proposta.titulo,
+            descricao=proposta.descricao,
+            status='Em progresso',
+            progresso=0,
+            professor_responsavel=professor,
+            empresa_associada=proposta.empresa,
+            aprovado_por=coordenador,
+            proposta=proposta,
+            data_inicio=date.today()
+        )
+
+        # Se a Empresa tiver relação M2M com projetos, adiciona também
+        try:
+            proposta.empresa.projetos_associados.add(projeto)
+        except Exception:
+            # Não crítico; apenas ignoramos se não for aplicável
+            pass
+
+        # Atualiza status da proposta
+        proposta.status = 'Transformada em projeto'
+        proposta.save()
+
+        serializer = ProjetoSerializer(projeto)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 @extend_schema_view(
@@ -252,6 +364,7 @@ class ProjetoViewSet(viewsets.ModelViewSet):
     """
     queryset = Projeto.objects.all()
     serializer_class = ProjetoSerializer
+    permission_classes = [IsProfessorOrCoordenadorOrReadOnly]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['status', 'professor_responsavel', 'empresa_associada', 'aprovado_por']
     search_fields = ['titulo', 'descricao', 'curso_turma', 'alunos']
@@ -276,6 +389,50 @@ class ProjetoViewSet(viewsets.ModelViewSet):
             serializer = self.get_serializer(projeto)
             return Response(serializer.data)
         return Response({'error': 'Progresso não informado'}, status=400)
+
+    @extend_schema(
+        summary="Atribuir professor ao projeto",
+        description="Atribui um professor responsável a um projeto (usado pela coordenação).",
+        tags=["Projetos"],
+        request={"application/json": {"type": "object", "properties": {"professor_id": {"type": "integer"}, "coordenador_id": {"type": "integer"}}}},
+        responses={200: ProjetoSerializer}
+    )
+    @action(detail=True, methods=['post'], permission_classes=[IsCoordenador])
+    def assign_professor(self, request, pk=None):
+        """Atribui professor_responsavel a um projeto."""
+        projeto = self.get_object()
+        prof_id = request.data.get('professor_id')
+        coord_id = request.data.get('coordenador_id')
+
+        if not prof_id:
+            return Response({'error': 'professor_id é obrigatório'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            professor = Professor.objects.get(id=prof_id)
+        except Professor.DoesNotExist:
+            return Response({'error': 'Professor não encontrado'}, status=status.HTTP_400_BAD_REQUEST)
+
+        coordenador = None
+        if coord_id:
+            try:
+                coordenador = Coordenador.objects.get(id=coord_id)
+            except Coordenador.DoesNotExist:
+                return Response({'error': 'Coordenador não encontrado'}, status=status.HTTP_400_BAD_REQUEST)
+
+        projeto.professor_responsavel = professor
+        if coordenador:
+            projeto.aprovado_por = coordenador
+        projeto.status = projeto.status or 'Em progresso'
+        projeto.save()
+
+        # garante que relações M2M dos professores também estejam atualizadas
+        try:
+            professor.projetos.add(projeto)
+        except Exception:
+            pass
+
+        serializer = self.get_serializer(projeto)
+        return Response(serializer.data)
 
 
 @extend_schema_view(

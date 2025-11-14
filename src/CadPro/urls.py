@@ -27,7 +27,7 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView,
 )
 from drf_spectacular.utils import extend_schema
-from app.authentication import CustomTokenObtainPairView
+from app.jwt_views import CustomTokenObtainPairView
 
 # Customiza as views do SimpleJWT para adicionar documentação Swagger
 @extend_schema(

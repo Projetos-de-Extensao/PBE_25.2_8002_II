@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Empresa - CadPro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+      <div class="container">
+        <a class="navbar-brand" href="#">CadPro</a>
+        <div>
+          <button id="logoutBtn" class="btn btn-outline-secondary btn-sm">Sair</button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container py-4">
+      <h3 id="roleTitle">Sou Empresa</h3>
+      
+      <!-- Formulário de Nova Proposta -->
+      <div class="card mb-4">
+        <div class="card-header">
+          <h5 class="mb-0">Criar Nova Proposta</h5>
+        </div>
+        <div class="card-body">
+          <form id="createPropostaForm">
+            <div class="mb-3">
+              <label for="titulo" class="form-label">Título</label>
+              <input type="text" class="form-control" id="titulo" required>
+            </div>
+            <div class="mb-3">
+              <label for="descricao" class="form-label">Descrição</label>
+              <textarea class="form-control" id="descricao" rows="4" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="anexos" class="form-label">Anexos (URLs ou descrições)</label>
+              <textarea class="form-control" id="anexos" rows="2"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar Proposta</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Lista de Propostas -->
+      <h4 class="mt-4">Minhas Propostas</h4>
+      <div id="propostasList" class="row gy-3 mt-2"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/projects.js"></script>
+    <script src="js/empresa.js"></script>
+  </body>
+</html>

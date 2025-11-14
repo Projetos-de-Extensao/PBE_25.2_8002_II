@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Coordenador - CadPro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+      <div class="container">
+        <a class="navbar-brand" href="#">CadPro</a>
+        <div>
+          <button id="logoutBtn" class="btn btn-outline-secondary btn-sm">Sair</button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container py-4">
+      <h3 id="roleTitle">Sou Coordenador</h3>
+      <ul class="nav nav-tabs mb-3" id="coordTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="propostas-tab" data-bs-toggle="tab" data-bs-target="#propostas" type="button" role="tab">Propostas</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="projetos-tab" data-bs-toggle="tab" data-bs-target="#projetos" type="button" role="tab">Projetos</button>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="propostas" role="tabpanel">
+          <div id="projectsList" class="row gy-3 mt-2"></div>
+        </div>
+        <div class="tab-pane fade" id="projetos" role="tabpanel">
+          <div id="allProjectsList" class="row gy-3 mt-2"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal para escolher professor ao 'ajeitar' proposta -->
+    <div class="modal fade" id="assignModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Aprovar e atribuir professor</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+          </div>
+          <div class="modal-body">
+            <p class="text-muted mb-3">Escolha um professor para transformar esta proposta em projeto:</p>
+            <div class="mb-3">
+              <label for="profSelect" class="form-label">Professor responsável</label>
+              <select id="profSelect" class="form-select"></select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button id="confirmAssign" type="button" class="btn btn-success">Aprovar e Criar Projeto</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal para editar projeto -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Editar projeto</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="editTitulo" class="form-label">Título</label>
+              <input type="text" id="editTitulo" class="form-control">
+            </div>
+            <div class="mb-3">
+              <label for="editDescricao" class="form-label">Descrição</label>
+              <textarea id="editDescricao" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="editProgresso" class="form-label">Progresso (%)</label>
+              <input type="number" id="editProgresso" class="form-control" min="0" max="100">
+            </div>
+            <div class="mb-3">
+              <label for="editStatus" class="form-label">Status</label>
+              <select id="editStatus" class="form-select">
+                <option value="Em andamento">Em andamento</option>
+                <option value="Concluído">Concluído</option>
+                <option value="Pausado">Pausado</option>
+                <option value="Cancelado">Cancelado</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="editAlunos" class="form-label">Alunos</label>
+              <textarea id="editAlunos" class="form-control" rows="2" placeholder="Lista de alunos"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="editAnexos" class="form-label">Anexos</label>
+              <textarea id="editAnexos" class="form-control" rows="2" placeholder="URLs ou nomes dos anexos"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button id="markDone" type="button" class="btn btn-success me-auto">Marcar como Concluído</button>
+            <button id="saveEdit" type="button" class="btn btn-primary">Salvar alterações</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/coordenador.js"></script>
+  </body>
+</html>

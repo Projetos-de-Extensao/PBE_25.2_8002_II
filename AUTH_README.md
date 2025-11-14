@@ -185,6 +185,103 @@ A API está configurada com `IsAuthenticatedOrReadOnly`, o que significa:
 
 **Observação:** O token retornado usa `email` para login (não `username`), pois nosso modelo Usuario utiliza email como identificador único.
 
+## 🎭 Sistema de Autenticação por Papel (Role-Based)
+
+### Registro com Papel
+
+O sistema suporta registro diferenciado por papel (role). Use o campo `role` no registro:
+
+```http
+POST /api/register/
+```
+
+**Request Body:**
+```json
+{
+  "nome": "João Professor",
+  "email": "prof@example.com",
+  "password": "senha123",
+  "password2": "senha123",
+  "role": "Professor"
+}
+```
+
+**Papéis Disponíveis:**
+- `Professor` - Cria registro na tabela Professor (herda de Usuario)
+- `Coordenador` - Cria registro na tabela Coordenador (herda de Usuario)
+- `Empresa` - Cria registro na tabela Empresa (modelo separado)
+
+**Campo Adicional para Empresas:**
+```json
+{
+  "nome": "Tech Corp",
+  "email": "contato@techcorp.com",
+  "password": "senha123",
+  "password2": "senha123",
+  "role": "Empresa",
+  "contato": "11999999999"
+}
+```
+
+### Token JWT com Tipo de Usuário
+
+Os tokens JWT incluem o campo `user_type` no payload:
+
+```json
+{
+  "token_type": "access",
+  "exp": 1699999999,
+  "iat": 1699999999,
+  "jti": "abc123...",
+  "user_id": 1,
+  "email": "prof@example.com",
+  "nome": "João Professor",
+  "user_type": "professor"
+}
+```
+
+**Valores de `user_type`:**
+- `professor` - Usuário é um Professor
+- `coordenador` - Usuário é um Coordenador
+- `empresa` - Usuário é uma Empresa
+- `usuario` - Usuário base (sem papel específico)
+
+### Autenticação Customizada
+
+O sistema usa `CustomJWTAuthentication` que:
+1. Extrai o token do header `Authorization: Bearer <token>`
+2. Decodifica e obtém `user_type` do payload
+3. Busca o usuário na tabela apropriada (Professor/Coordenador/Empresa/Usuario)
+4. Retorna um `UsuarioWrapper` com propriedade `user_type`
+
+### Auto-Hash de Senhas (Desenvolvimento)
+
+⚠️ **Recurso de Desenvolvimento**: O sistema possui um fallback de auto-hash para facilitar testes.
+
+**Como funciona:**
+1. Ao fazer login, tenta validar com `check_password()`
+2. Se falhar, verifica se a senha em texto plano corresponde
+3. Se sim, aplica `make_password()` e salva o hash
+4. Próximo login já usa o hash normalmente
+
+**Exemplo:**
+```python
+# Primeira tentativa de login com senha em texto plano "abc123"
+POST /api/token/
+{
+  "email": "user@test.com",
+  "password": "abc123"
+}
+
+# Sistema detecta texto plano, converte para hash e salva
+# Próximo login já usa o hash
+```
+
+**⚠️ Remover em Produção:**
+- Este fallback deve ser removido do arquivo `src/app/jwt_views.py`
+- Garantir que todas as senhas no banco estejam hasheadas
+- Implementar política de senhas fortes
+
 ---
 
 ## 📝 Fluxo de Autenticação Completo

@@ -1,5 +1,8 @@
 from rest_framework import serializers
-from django.contrib.auth.password_validation import validate_password
+# Temporariamente desabilitamos a validação de senha do Django
+# para permitir senhas simples em registros rápidos durante o desenvolvimento.
+# Para reativar, descomente a importação e os validators abaixo.
+# from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.hashers import make_password
 from .models import (
     Usuario,
@@ -13,29 +16,74 @@ from .models import (
 )
 
 
-class RegisterSerializer(serializers.ModelSerializer):
-    """Serializer para registro de novos usuários"""
-    password = serializers.CharField(
-        write_only=True, required=True, validators=[validate_password]
-    )
-    password2 = serializers.CharField(write_only=True, required=True)
+class RegisterSerializer(serializers.Serializer):
+    """Serializer para registro que aceita papel (role) e cria o tipo correto.
 
-    class Meta:
-        model = Usuario
-        fields = ('nome', 'email', 'password', 'password2')
+    Campos aceitos: nome, email, password, password2, role (professor|coordenador|empresa), contato (opcional, para empresa).
+    """
+    ROLE_CHOICES = (
+        ('professor', 'Professor'),
+        ('coordenador', 'Coordenador'),
+        ('empresa', 'Empresa'),
+    )
+
+    nome = serializers.CharField(max_length=200)
+    email = serializers.EmailField()
+    # validators=[validate_password]  # desabilitado temporariamente
+    password = serializers.CharField(write_only=True, required=True)
+    password2 = serializers.CharField(write_only=True, required=True)
+    role = serializers.ChoiceField(choices=ROLE_CHOICES)
+    contato = serializers.CharField(max_length=200, required=False, allow_blank=True)
 
     def validate(self, attrs):
-        if attrs['password'] != attrs['password2']:
-            raise serializers.ValidationError(
-                {"password": "Os campos de senha não coincidem."}
-            )
+        if attrs.get('password') != attrs.get('password2'):
+            raise serializers.ValidationError({"password": "Os campos de senha não coincidem."})
         return attrs
 
     def create(self, validated_data):
-        validated_data.pop('password2')
-        validated_data['senha'] = make_password(validated_data.pop('password'))
-        user = Usuario.objects.create(**validated_data)
+        # Remover campo auxiliar
+        validated_data.pop('password2', None)
+        role = validated_data.pop('role')
+        contato = validated_data.pop('contato', '')
+        senha_raw = validated_data.pop('password')
+        senha_hashed = make_password(senha_raw)
+
+        nome = validated_data.get('nome')
+        email = validated_data.get('email')
+
+        if role == 'professor':
+            user = Professor.objects.create(nome=nome, email=email, senha=senha_hashed)
+            return user
+        if role == 'coordenador':
+            user = Coordenador.objects.create(nome=nome, email=email, senha=senha_hashed)
+            return user
+        # empresa
+        user = Empresa.objects.create(nome=nome, email=email, senha=senha_hashed, contato=contato)
         return user
+
+    def to_representation(self, instance):
+        """Retorna uma representação simples do objeto criado.
+
+        Evita que o DRF tente acessar campos como `role` diretamente no modelo
+        (o que causava AttributeError quando o objeto era Empresa/Professor/Coordenador).
+        """
+        role = 'Usuário'
+        contato = ''
+        if isinstance(instance, Professor):
+            role = 'Professor'
+        elif isinstance(instance, Coordenador):
+            role = 'Coordenador'
+        elif isinstance(instance, Empresa):
+            role = 'Empresa'
+            contato = getattr(instance, 'contato', '')
+
+        return {
+            'id': instance.id,
+            'nome': instance.nome,
+            'email': instance.email,
+            'role': role,
+            'contato': contato,
+        }
 
 
 class UsuarioSerializer(serializers.ModelSerializer):
@@ -114,7 +162,11 @@ class PropostaSerializer(serializers.ModelSerializer):
             'id', 'titulo', 'descricao', 'data_envio', 'status',
             'anexos', 'empresa', 'empresa_nome'
         ]
-        read_only_fields = ['data_envio']
+        read_only_fields = ['data_envio', 'status']
+        # empresa é opcional no serializer (preenchido automaticamente se for empresa logada)
+        extra_kwargs = {
+            'empresa': {'required': False, 'allow_null': True}
+        }
 
 
 class ProjetoSerializer(serializers.ModelSerializer):
